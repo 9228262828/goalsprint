@@ -1,0 +1,336 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>GoalSprint Terms &amp; Conditions</title>
+    <style>
+      :root {
+        --blue: #2563eb;
+        --green: #22c55e;
+        --ink: #0f172a;
+        --muted: #64748b;
+        --line: #e2e8f0;
+        --bg: #f8fafc;
+        --card: #ffffff;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        background:
+          radial-gradient(circle at top left, rgba(37, 99, 235, 0.16), transparent 32rem),
+          radial-gradient(circle at top right, rgba(34, 197, 94, 0.14), transparent 30rem),
+          var(--bg);
+        color: var(--ink);
+        font-family:
+          Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
+          "Segoe UI", sans-serif;
+        line-height: 1.65;
+      }
+
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      .page {
+        width: min(980px, calc(100% - 32px));
+        margin: 0 auto;
+      }
+
+      .nav {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 18px;
+        padding: 24px 0;
+      }
+
+      .brand {
+        display: inline-flex;
+        align-items: center;
+        gap: 12px;
+        font-weight: 800;
+        letter-spacing: -0.04em;
+      }
+
+      .logo {
+        display: grid;
+        width: 42px;
+        height: 42px;
+        place-items: center;
+        border-radius: 16px;
+        background: linear-gradient(135deg, var(--blue), var(--green));
+        color: white;
+        box-shadow: 0 16px 40px rgba(37, 99, 235, 0.25);
+      }
+
+      .links {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+      }
+
+      .links a {
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.74);
+        color: var(--muted);
+        font-size: 0.95rem;
+        font-weight: 700;
+        padding: 10px 14px;
+      }
+
+      .links a[aria-current="page"],
+      .links a:hover {
+        color: var(--blue);
+        border-color: rgba(37, 99, 235, 0.3);
+      }
+
+      .hero {
+        margin: 18px 0 18px;
+        border-radius: 34px;
+        background: linear-gradient(135deg, var(--blue), var(--green));
+        color: white;
+        padding: clamp(32px, 6vw, 64px);
+        box-shadow: 0 24px 70px rgba(15, 23, 42, 0.16);
+      }
+
+      .eyebrow {
+        display: inline-flex;
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.16);
+        padding: 8px 12px;
+        font-size: 0.9rem;
+        font-weight: 800;
+      }
+
+      h1 {
+        margin: 18px 0 12px;
+        font-size: clamp(2.1rem, 6vw, 4.4rem);
+        line-height: 0.98;
+        letter-spacing: -0.07em;
+      }
+
+      .hero p {
+        max-width: 760px;
+        margin: 0;
+        color: rgba(255, 255, 255, 0.9);
+        font-size: 1.08rem;
+      }
+
+      .meta {
+        color: var(--muted);
+        margin: 0 0 18px;
+      }
+
+      .section {
+        border: 1px solid var(--line);
+        border-radius: 24px;
+        background: rgba(255, 255, 255, 0.92);
+        box-shadow: 0 18px 48px rgba(15, 23, 42, 0.07);
+        margin: 14px 0;
+        padding: 24px;
+      }
+
+      .section h2 {
+        margin: 0 0 10px;
+        font-size: 1.28rem;
+        letter-spacing: -0.035em;
+      }
+
+      .section p {
+        margin: 0;
+        color: var(--muted);
+      }
+
+      .notice {
+        border: 1px solid rgba(37, 99, 235, 0.22);
+        border-radius: 24px;
+        background: linear-gradient(135deg, rgba(37, 99, 235, 0.09), rgba(34, 197, 94, 0.09));
+        margin: 14px 0;
+        padding: 22px;
+      }
+
+      .notice strong {
+        display: block;
+        margin-bottom: 6px;
+      }
+
+      .notice span {
+        color: var(--muted);
+      }
+
+      footer {
+        border-top: 1px solid var(--line);
+        color: var(--muted);
+        margin-top: 28px;
+        padding: 24px 0 34px;
+      }
+
+      @media (max-width: 760px) {
+        .nav {
+          align-items: flex-start;
+          flex-direction: column;
+        }
+
+        .section,
+        .notice {
+          padding: 20px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="page">
+      <nav class="nav" aria-label="Main navigation">
+        <a class="brand" href="index.html" aria-label="GoalSprint legal home">
+          <span class="logo">GS</span>
+          <span>GoalSprint</span>
+        </a>
+        <div class="links">
+          <a href="index.html">Home</a>
+          <a href="privacy-policy.html">Privacy Policy</a>
+          <a href="terms-conditions.html" aria-current="page">Terms &amp; Conditions</a>
+        </div>
+      </nav>
+
+      <header class="hero">
+        <span class="eyebrow">GoalSprint</span>
+        <h1>Terms &amp; Conditions</h1>
+        <p>
+          These Terms explain the basic rules for using GoalSprint and your
+          responsibility for local app data.
+        </p>
+      </header>
+
+      <p class="meta">Effective date: 2026</p>
+
+      <div class="notice">
+        <strong>Terms summary</strong>
+        <span>
+          GoalSprint is a simple local productivity app. You are responsible for
+          the tasks and habits you enter, for protecting your device, and for
+          backing up any information you consider important.
+        </span>
+      </div>
+
+      <section class="section">
+        <h2>1. Acceptance of Terms</h2>
+        <p>
+          By downloading, installing, accessing, or using GoalSprint, you agree
+          to these Terms &amp; Conditions. If you do not agree to these Terms, do not
+          use the app.
+        </p>
+      </section>
+
+      <section class="section">
+        <h2>2. App Purpose</h2>
+        <p>
+          GoalSprint is provided as a simple productivity tool for creating
+          tasks, tracking habits, setting priorities, and reviewing daily
+          progress. It is intended for general personal organization and is not
+          a substitute for professional, medical, financial, legal, or safety
+          advice.
+        </p>
+      </section>
+
+      <section class="section">
+        <h2>3. User Responsibilities</h2>
+        <p>
+          You are responsible for the information you enter into GoalSprint and
+          for how you use the app. You agree not to use GoalSprint for unlawful,
+          harmful, abusive, misleading, or unauthorized purposes. You should
+          avoid entering sensitive or confidential information into task or habit
+          titles.
+        </p>
+      </section>
+
+      <section class="section">
+        <h2>4. Local Data Responsibility</h2>
+        <p>
+          GoalSprint stores tasks, habits, priorities, completion states, and
+          settings locally on your device. You are responsible for maintaining
+          access to your device, protecting your device, and backing up any
+          information you consider important using tools provided by your device
+          or operating system.
+        </p>
+      </section>
+
+      <section class="section">
+        <h2>5. No Account, Login, Backend, or Cloud Sync</h2>
+        <p>
+          GoalSprint does not currently provide user accounts, login, backend
+          storage, cloud sync, or remote recovery. If the app is deleted, app
+          data is cleared, or your device is lost or reset, locally stored
+          GoalSprint data may be permanently lost.
+        </p>
+      </section>
+
+      <section class="section">
+        <h2>6. Privacy and Data Practices</h2>
+        <p>
+          GoalSprint stores data locally, does not share user data with third
+          parties, does not show ads currently, and does not request sensitive
+          permissions. Additional details are available in the Privacy Policy.
+        </p>
+      </section>
+
+      <section class="section">
+        <h2>7. No Guarantee</h2>
+        <p>
+          GoalSprint is provided on an as-is and as-available basis. We do not
+          guarantee that the app will be uninterrupted, error-free, compatible
+          with every device, or suitable for every purpose. Productivity results
+          depend on how you use the app.
+        </p>
+      </section>
+
+      <section class="section">
+        <h2>8. Limitation of Liability</h2>
+        <p>
+          To the maximum extent permitted by law, GoalSprint and its developers
+          are not liable for indirect, incidental, special, consequential, or
+          punitive damages, including loss of data, loss of productivity, device
+          issues, missed deadlines, or reliance on information stored in the app.
+        </p>
+      </section>
+
+      <section class="section">
+        <h2>9. Changes to the App</h2>
+        <p>
+          GoalSprint may change, improve, suspend, or remove features at any
+          time. Future versions may add new functionality. Material changes may
+          be reflected in updated app information, the Privacy Policy, or these
+          Terms &amp; Conditions.
+        </p>
+      </section>
+
+      <section class="section">
+        <h2>10. Termination</h2>
+        <p>
+          You may stop using GoalSprint at any time by deleting the app from
+          your device. We may discontinue the app or restrict access to future
+          updates if necessary for security, legal, operational, or platform
+          reasons.
+        </p>
+      </section>
+
+      <section class="section">
+        <h2>11. Contact</h2>
+        <p>
+          If you have questions about these Terms &amp; Conditions, contact us at
+          your-email@example.com.
+        </p>
+      </section>
+
+      <footer>
+        <span>GoalSprint Terms &amp; Conditions | Contact: your-email@example.com</span>
+      </footer>
+    </main>
+  </body>
+</html>

@@ -1,0 +1,377 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>GoalSprint Privacy Policy</title>
+    <style>
+      :root {
+        --blue: #2563eb;
+        --green: #22c55e;
+        --ink: #0f172a;
+        --muted: #64748b;
+        --line: #e2e8f0;
+        --bg: #f8fafc;
+        --card: #ffffff;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        background:
+          radial-gradient(circle at top left, rgba(37, 99, 235, 0.16), transparent 32rem),
+          radial-gradient(circle at top right, rgba(34, 197, 94, 0.14), transparent 30rem),
+          var(--bg);
+        color: var(--ink);
+        font-family:
+          Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
+          "Segoe UI", sans-serif;
+        line-height: 1.65;
+      }
+
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      .page {
+        width: min(980px, calc(100% - 32px));
+        margin: 0 auto;
+      }
+
+      .nav {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 18px;
+        padding: 24px 0;
+      }
+
+      .brand {
+        display: inline-flex;
+        align-items: center;
+        gap: 12px;
+        font-weight: 800;
+        letter-spacing: -0.04em;
+      }
+
+      .logo {
+        display: grid;
+        width: 42px;
+        height: 42px;
+        place-items: center;
+        border-radius: 16px;
+        background: linear-gradient(135deg, var(--blue), var(--green));
+        color: white;
+        box-shadow: 0 16px 40px rgba(37, 99, 235, 0.25);
+      }
+
+      .links {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+      }
+
+      .links a {
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.74);
+        color: var(--muted);
+        font-size: 0.95rem;
+        font-weight: 700;
+        padding: 10px 14px;
+      }
+
+      .links a[aria-current="page"],
+      .links a:hover {
+        color: var(--blue);
+        border-color: rgba(37, 99, 235, 0.3);
+      }
+
+      .hero {
+        margin: 18px 0 18px;
+        border-radius: 34px;
+        background: linear-gradient(135deg, var(--blue), var(--green));
+        color: white;
+        padding: clamp(32px, 6vw, 64px);
+        box-shadow: 0 24px 70px rgba(15, 23, 42, 0.16);
+      }
+
+      .eyebrow {
+        display: inline-flex;
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.16);
+        padding: 8px 12px;
+        font-size: 0.9rem;
+        font-weight: 800;
+      }
+
+      h1 {
+        margin: 18px 0 12px;
+        font-size: clamp(2.1rem, 6vw, 4.4rem);
+        line-height: 0.98;
+        letter-spacing: -0.07em;
+      }
+
+      .hero p {
+        max-width: 760px;
+        margin: 0;
+        color: rgba(255, 255, 255, 0.9);
+        font-size: 1.08rem;
+      }
+
+      .meta {
+        color: var(--muted);
+        margin: 0 0 18px;
+      }
+
+      .section {
+        border: 1px solid var(--line);
+        border-radius: 24px;
+        background: rgba(255, 255, 255, 0.92);
+        box-shadow: 0 18px 48px rgba(15, 23, 42, 0.07);
+        margin: 14px 0;
+        padding: 24px;
+      }
+
+      .section h2 {
+        margin: 0 0 10px;
+        font-size: 1.28rem;
+        letter-spacing: -0.035em;
+      }
+
+      .section p {
+        margin: 0;
+        color: var(--muted);
+      }
+
+      .section ul {
+        margin: 8px 0 0;
+        color: var(--muted);
+        padding-left: 22px;
+      }
+
+      .notice {
+        border: 1px solid rgba(37, 99, 235, 0.22);
+        border-radius: 24px;
+        background: linear-gradient(135deg, rgba(37, 99, 235, 0.09), rgba(34, 197, 94, 0.09));
+        margin: 14px 0;
+        padding: 22px;
+      }
+
+      .notice strong {
+        display: block;
+        margin-bottom: 6px;
+      }
+
+      .notice span {
+        color: var(--muted);
+      }
+
+      footer {
+        border-top: 1px solid var(--line);
+        color: var(--muted);
+        margin-top: 28px;
+        padding: 24px 0 34px;
+      }
+
+      @media (max-width: 760px) {
+        .nav {
+          align-items: flex-start;
+          flex-direction: column;
+        }
+
+        .section,
+        .notice {
+          padding: 20px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="page">
+      <nav class="nav" aria-label="Main navigation">
+        <a class="brand" href="index.html" aria-label="GoalSprint legal home">
+          <span class="logo">GS</span>
+          <span>GoalSprint</span>
+        </a>
+        <div class="links">
+          <a href="index.html">Home</a>
+          <a href="privacy-policy.html" aria-current="page">Privacy Policy</a>
+          <a href="terms-conditions.html">Terms &amp; Conditions</a>
+        </div>
+      </nav>
+
+      <header class="hero">
+        <span class="eyebrow">GoalSprint</span>
+        <h1>Privacy Policy</h1>
+        <p>
+          This Privacy Policy explains how GoalSprint handles information when
+          you use the app. GoalSprint is built as a local-first productivity app.
+        </p>
+      </header>
+
+      <p class="meta">Effective date: 2026</p>
+
+      <div class="notice">
+        <strong>Privacy summary</strong>
+        <span>
+          GoalSprint stores tasks, habits, priorities, completion status, and app
+          settings locally on your device. GoalSprint has no account login, no
+          backend server, no third-party data sharing, no ads currently, and no
+          sensitive permissions.
+        </span>
+      </div>
+
+      <section class="section">
+        <h2>1. Introduction</h2>
+        <p>
+          GoalSprint helps users plan tasks, manage habits, and review daily
+          progress. We designed the app to be simple and privacy-conscious by
+          keeping user-entered productivity data on the user's device instead of
+          sending it to a remote server.
+        </p>
+      </section>
+
+      <section class="section">
+        <h2>2. Information We Collect</h2>
+        <p>
+          GoalSprint does not collect personal information such as your name,
+          email address, phone number, location, contacts, photos, payment
+          details, or account credentials. The app only stores information you
+          enter or create inside the app, including:
+        </p>
+        <ul>
+          <li>Task titles and task completion status.</li>
+          <li>Habit titles and habit-related display information.</li>
+          <li>Priority selections such as Low, Medium, or High.</li>
+          <li>Basic app settings such as dark mode preference.</li>
+        </ul>
+      </section>
+
+      <section class="section">
+        <h2>3. Local Storage Only</h2>
+        <p>
+          GoalSprint stores app data locally on your device using device storage.
+          This data remains on your device and is not sent to GoalSprint servers.
+          Device-level backups or transfers may be controlled by your operating
+          system or device settings, not by GoalSprint.
+        </p>
+      </section>
+
+      <section class="section">
+        <h2>4. Tasks and Habits Data</h2>
+        <p>
+          Tasks and habits are used only to display and manage your productivity
+          lists within GoalSprint. You control what you enter. We recommend that
+          you do not enter sensitive personal, medical, financial, legal, or
+          confidential information into task or habit titles.
+        </p>
+      </section>
+
+      <section class="section">
+        <h2>5. No Account or Login</h2>
+        <p>
+          GoalSprint does not require registration, authentication, user
+          profiles, passwords, or login. Because there is no account system,
+          GoalSprint does not collect or store account credentials.
+        </p>
+      </section>
+
+      <section class="section">
+        <h2>6. No Backend or Server</h2>
+        <p>
+          GoalSprint does not currently use a backend server for user data. The
+          app does not upload your tasks, habits, settings, or usage content to a
+          server operated by GoalSprint.
+        </p>
+      </section>
+
+      <section class="section">
+        <h2>7. No Third-Party Sharing</h2>
+        <p>
+          GoalSprint does not sell, rent, trade, transfer, or share your task,
+          habit, or settings data with third parties. Since the app stores data
+          locally, GoalSprint does not have access to the content you enter.
+        </p>
+      </section>
+
+      <section class="section">
+        <h2>8. No Ads Currently</h2>
+        <p>
+          GoalSprint does not currently display advertisements and does not
+          currently use advertising SDKs. We do not share user data with ad
+          networks.
+        </p>
+      </section>
+
+      <section class="section">
+        <h2>9. No Sensitive Permissions</h2>
+        <p>
+          GoalSprint does not request sensitive device permissions such as
+          location, camera, microphone, contacts, calendar, SMS, call logs, or
+          health data permissions. If future features require permissions, they
+          will be requested only when needed and explained in context.
+        </p>
+      </section>
+
+      <section class="section">
+        <h2>10. Children's Privacy</h2>
+        <p>
+          GoalSprint is not intended to knowingly collect personal information
+          from children. The app has no account system and no backend collection.
+          If a parent or guardian believes a child has entered personal
+          information into local task or habit data, that data can be deleted
+          from the app or removed by clearing app data on the device.
+        </p>
+      </section>
+
+      <section class="section">
+        <h2>11. Data Deletion</h2>
+        <p>
+          You can delete individual tasks and habits inside GoalSprint. You can
+          also delete locally stored data by clearing GoalSprint app data in your
+          device settings or uninstalling the app. Because GoalSprint does not
+          maintain a backend account, there is no remote server data to request
+          or delete.
+        </p>
+      </section>
+
+      <section class="section">
+        <h2>12. Security</h2>
+        <p>
+          GoalSprint keeps data locally and relies on your device's built-in
+          security protections. You are responsible for protecting your device
+          with available safeguards such as screen lock, passcode, biometric
+          unlock, operating system updates, and device encryption where
+          available.
+        </p>
+      </section>
+
+      <section class="section">
+        <h2>13. Changes to This Policy</h2>
+        <p>
+          We may update this Privacy Policy from time to time to reflect changes
+          to GoalSprint, legal requirements, or privacy practices. Updated
+          versions may be published on this page or made available through the
+          app listing.
+        </p>
+      </section>
+
+      <section class="section">
+        <h2>14. Contact</h2>
+        <p>
+          If you have questions about this Privacy Policy, contact us at
+          your-email@example.com.
+        </p>
+      </section>
+
+      <footer>
+        <span>GoalSprint Privacy Policy | Contact: your-email@example.com</span>
+      </footer>
+    </main>
+  </body>
+</html>
