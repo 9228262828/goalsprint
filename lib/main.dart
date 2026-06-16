@@ -1,4 +1,8 @@
+import 'dart:async';
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 void main() {
   runApp(const GoalSprintApp());
@@ -57,6 +61,49 @@ class GoalItem {
   final GoalItemType type;
   final String? streak;
   bool done;
+
+  factory GoalItem.fromJson(
+    Map<String, dynamic> json, {
+    required GoalItemType fallbackType,
+  }) {
+    return GoalItem(
+      title: json['title'] as String? ?? '',
+      priority: _goalPriorityFromName(json['priority'] as String?),
+      type: _goalItemTypeFromName(json['type'] as String?, fallbackType),
+      done: json['done'] == true,
+      streak: json['streak'] as String?,
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'title': title,
+      'priority': priority.name,
+      'type': type.name,
+      'done': done,
+      'streak': streak,
+    };
+  }
+}
+
+GoalItemType _goalItemTypeFromName(String? name, GoalItemType fallback) {
+  for (final type in GoalItemType.values) {
+    if (type.name == name) {
+      return type;
+    }
+  }
+
+  return fallback;
+}
+
+GoalPriority _goalPriorityFromName(String? name) {
+  for (final priority in GoalPriority.values) {
+    if (priority.name == name) {
+      return priority;
+    }
+  }
+
+  return GoalPriority.medium;
 }
 
 class GoalSprintApp extends StatefulWidget {
@@ -210,7 +257,10 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  final List<GoalItem> _tasks = [
+  static const String _tasksStorageKey = 'goalsprint_tasks';
+  static const String _habitsStorageKey = 'goalsprint_habits';
+
+  List<GoalItem> _tasks = [
     GoalItem(
       title: 'Plan today’s sprint',
       priority: GoalPriority.high,
@@ -229,7 +279,7 @@ class _HomeScreenState extends State<HomeScreen> {
     ),
   ];
 
-  final List<GoalItem> _habits = [
+  List<GoalItem> _habits = [
     GoalItem(
       title: 'Drink water',
       priority: GoalPriority.low,
@@ -243,6 +293,76 @@ class _HomeScreenState extends State<HomeScreen> {
       streak: '3 days',
     ),
   ];
+
+  @override
+  void initState() {
+    super.initState();
+    _loadItems();
+  }
+
+  Future<void> _loadItems() async {
+    final preferences = await SharedPreferences.getInstance();
+    final savedTasks = preferences.getString(_tasksStorageKey);
+    final savedHabits = preferences.getString(_habitsStorageKey);
+
+    if (!mounted) {
+      return;
+    }
+
+    setState(() {
+      if (savedTasks != null) {
+        _tasks = _decodeItems(savedTasks, GoalItemType.task);
+      }
+
+      if (savedHabits != null) {
+        _habits = _decodeItems(savedHabits, GoalItemType.habit);
+      }
+    });
+  }
+
+  List<GoalItem> _decodeItems(String encodedItems, GoalItemType type) {
+    try {
+      final decodedItems = jsonDecode(encodedItems);
+
+      if (decodedItems is! List) {
+        return [];
+      }
+
+      final items = <GoalItem>[];
+
+      for (final decodedItem in decodedItems) {
+        if (decodedItem is! Map) {
+          continue;
+        }
+
+        final item = GoalItem.fromJson(
+          Map<String, dynamic>.from(decodedItem),
+          fallbackType: type,
+        );
+
+        if (item.type == type && item.title.trim().isNotEmpty) {
+          items.add(item);
+        }
+      }
+
+      return items;
+    } catch (_) {
+      return [];
+    }
+  }
+
+  Future<void> _saveItems() async {
+    final preferences = await SharedPreferences.getInstance();
+
+    await preferences.setString(
+      _tasksStorageKey,
+      jsonEncode(_tasks.map((task) => task.toJson()).toList()),
+    );
+    await preferences.setString(
+      _habitsStorageKey,
+      jsonEncode(_habits.map((habit) => habit.toJson()).toList()),
+    );
+  }
 
   Future<void> _openAddItemScreen() async {
     final item = await Navigator.push<GoalItem>(
@@ -261,6 +381,7 @@ class _HomeScreenState extends State<HomeScreen> {
         _habits.add(item);
       }
     });
+    unawaited(_saveItems());
   }
 
   void _openSettingsScreen() {
@@ -279,12 +400,14 @@ class _HomeScreenState extends State<HomeScreen> {
     setState(() {
       task.done = !task.done;
     });
+    unawaited(_saveItems());
   }
 
   void _deleteTask(GoalItem task) {
     setState(() {
       _tasks.remove(task);
     });
+    unawaited(_saveItems());
     _showDeletedMessage(task.title);
   }
 
@@ -292,6 +415,7 @@ class _HomeScreenState extends State<HomeScreen> {
     setState(() {
       _habits.remove(habit);
     });
+    unawaited(_saveItems());
     _showDeletedMessage(habit.title);
   }
 
@@ -761,15 +885,11 @@ class PrivacyPolicyScreen extends StatelessWidget {
                 SizedBox(height: 12),
                 Text('GoalSprint does not use accounts, login, or a backend.'),
                 SizedBox(height: 12),
-                Text(
-                  'GoalSprint does not share your data with third parties.',
-                ),
+                Text('GoalSprint does not share your data with third parties.'),
                 SizedBox(height: 12),
                 Text('GoalSprint does not show ads for now.'),
                 SizedBox(height: 12),
-                Text(
-                  'GoalSprint does not request sensitive permissions.',
-                ),
+                Text('GoalSprint does not request sensitive permissions.'),
               ],
             ),
           ),
@@ -827,9 +947,7 @@ class TermsConditionsScreen extends StatelessWidget {
                   'not show ads for now.',
                 ),
                 SizedBox(height: 12),
-                Text(
-                  'GoalSprint does not request sensitive permissions.',
-                ),
+                Text('GoalSprint does not request sensitive permissions.'),
               ],
             ),
           ),
