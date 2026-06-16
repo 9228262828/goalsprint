@@ -598,6 +598,20 @@ class _SettingsScreenState extends State<SettingsScreen> {
     _darkMode = widget.darkMode;
   }
 
+  void _openPrivacyPolicy() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (_) => const PrivacyPolicyScreen()),
+    );
+  }
+
+  void _openTermsConditions() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (_) => const TermsConditionsScreen()),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -633,6 +647,40 @@ class _SettingsScreenState extends State<SettingsScreen> {
           ),
           const SizedBox(height: 18),
           Container(
+            decoration: BoxDecoration(
+              color: Theme.of(context).cardColor,
+              borderRadius: BorderRadius.circular(24),
+            ),
+            child: Column(
+              children: [
+                ListTile(
+                  leading: const Icon(Icons.privacy_tip_rounded),
+                  title: const Text(
+                    'Privacy Policy',
+                    style: TextStyle(fontWeight: FontWeight.w700),
+                  ),
+                  trailing: const Icon(Icons.chevron_right_rounded),
+                  onTap: _openPrivacyPolicy,
+                ),
+                Divider(
+                  height: 1,
+                  indent: 56,
+                  color: Theme.of(context).dividerColor,
+                ),
+                ListTile(
+                  leading: const Icon(Icons.description_rounded),
+                  title: const Text(
+                    'Terms & Conditions',
+                    style: TextStyle(fontWeight: FontWeight.w700),
+                  ),
+                  trailing: const Icon(Icons.chevron_right_rounded),
+                  onTap: _openTermsConditions,
+                ),
+              ],
+            ),
+          ),
+          const SizedBox(height: 18),
+          Container(
             padding: const EdgeInsets.all(20),
             decoration: BoxDecoration(
               color: Theme.of(context).cardColor,
@@ -663,6 +711,124 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 Text(
                   'GoalSprint helps you plan simple daily sprints, finish tasks, '
                   'and build habits with a lightweight local workflow.',
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class PrivacyPolicyScreen extends StatelessWidget {
+  const PrivacyPolicyScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text(
+          'Privacy Policy',
+          style: TextStyle(fontWeight: FontWeight.w800),
+        ),
+      ),
+      body: ListView(
+        padding: const EdgeInsets.all(20),
+        children: [
+          Container(
+            padding: const EdgeInsets.all(20),
+            decoration: BoxDecoration(
+              color: Theme.of(context).cardColor,
+              borderRadius: BorderRadius.circular(24),
+            ),
+            child: const Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'GoalSprint Privacy Policy',
+                  style: TextStyle(
+                    fontSize: 22,
+                    fontWeight: FontWeight.w800,
+                    letterSpacing: -0.4,
+                  ),
+                ),
+                SizedBox(height: 16),
+                Text(
+                  'GoalSprint stores your tasks, habits, and settings locally '
+                  'on your device.',
+                ),
+                SizedBox(height: 12),
+                Text('GoalSprint does not use accounts, login, or a backend.'),
+                SizedBox(height: 12),
+                Text(
+                  'GoalSprint does not share your data with third parties.',
+                ),
+                SizedBox(height: 12),
+                Text('GoalSprint does not show ads for now.'),
+                SizedBox(height: 12),
+                Text(
+                  'GoalSprint does not request sensitive permissions.',
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class TermsConditionsScreen extends StatelessWidget {
+  const TermsConditionsScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text(
+          'Terms & Conditions',
+          style: TextStyle(fontWeight: FontWeight.w800),
+        ),
+      ),
+      body: ListView(
+        padding: const EdgeInsets.all(20),
+        children: [
+          Container(
+            padding: const EdgeInsets.all(20),
+            decoration: BoxDecoration(
+              color: Theme.of(context).cardColor,
+              borderRadius: BorderRadius.circular(24),
+            ),
+            child: const Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'GoalSprint Terms & Conditions',
+                  style: TextStyle(
+                    fontSize: 22,
+                    fontWeight: FontWeight.w800,
+                    letterSpacing: -0.4,
+                  ),
+                ),
+                SizedBox(height: 16),
+                Text(
+                  'GoalSprint is a simple local productivity app for tracking '
+                  'tasks and habits.',
+                ),
+                SizedBox(height: 12),
+                Text(
+                  'Your data is stored locally on your device. GoalSprint does '
+                  'not provide an account, login, or backend sync.',
+                ),
+                SizedBox(height: 12),
+                Text(
+                  'GoalSprint does not share data with third parties and does '
+                  'not show ads for now.',
+                ),
+                SizedBox(height: 12),
+                Text(
+                  'GoalSprint does not request sensitive permissions.',
                 ),
               ],
             ),
