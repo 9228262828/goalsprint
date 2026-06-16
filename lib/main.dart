@@ -53,25 +53,35 @@ class GoalItem {
     required this.priority,
     required this.type,
     this.done = false,
-    this.streak,
+    this.streakCount = 0,
+    this.isDoneToday = false,
+    this.lastCompletedDate,
   });
 
   final String title;
   final GoalPriority priority;
   final GoalItemType type;
-  final String? streak;
   bool done;
+  int streakCount;
+  bool isDoneToday;
+  DateTime? lastCompletedDate;
 
   factory GoalItem.fromJson(
     Map<String, dynamic> json, {
     required GoalItemType fallbackType,
   }) {
+    final lastCompletedDate = _dateFromStorage(json['lastCompletedDate']);
+
     return GoalItem(
       title: json['title'] as String? ?? '',
       priority: _goalPriorityFromName(json['priority'] as String?),
       type: _goalItemTypeFromName(json['type'] as String?, fallbackType),
       done: json['done'] == true,
-      streak: json['streak'] as String?,
+      streakCount: _streakCountFromJson(json),
+      isDoneToday:
+          json['isDoneToday'] == true &&
+          _isSameDate(lastCompletedDate, _todayDate()),
+      lastCompletedDate: lastCompletedDate,
     );
   }
 
@@ -81,7 +91,9 @@ class GoalItem {
       'priority': priority.name,
       'type': type.name,
       'done': done,
-      'streak': streak,
+      'streakCount': streakCount,
+      'isDoneToday': isDoneToday,
+      'lastCompletedDate': _dateToStorage(lastCompletedDate),
     };
   }
 }
@@ -104,6 +116,73 @@ GoalPriority _goalPriorityFromName(String? name) {
   }
 
   return GoalPriority.medium;
+}
+
+int _streakCountFromJson(Map<String, dynamic> json) {
+  final streakCount = json['streakCount'];
+
+  if (streakCount is int) {
+    return streakCount;
+  }
+
+  if (streakCount is num) {
+    return streakCount.toInt();
+  }
+
+  final legacyStreak = json['streak'] as String?;
+  final legacyCount = int.tryParse(legacyStreak?.split(' ').first ?? '');
+
+  return legacyCount ?? 0;
+}
+
+DateTime _todayDate() {
+  return _dateOnly(DateTime.now());
+}
+
+DateTime _yesterdayDate([DateTime? today]) {
+  return (today ?? _todayDate()).subtract(const Duration(days: 1));
+}
+
+DateTime _dateOnly(DateTime date) {
+  return DateTime(date.year, date.month, date.day);
+}
+
+bool _isSameDate(DateTime? firstDate, DateTime secondDate) {
+  if (firstDate == null) {
+    return false;
+  }
+
+  return _dateOnly(firstDate) == _dateOnly(secondDate);
+}
+
+bool _isYesterday(DateTime? date, DateTime today) {
+  return _isSameDate(date, _yesterdayDate(today));
+}
+
+DateTime? _dateFromStorage(Object? value) {
+  if (value is! String || value.isEmpty) {
+    return null;
+  }
+
+  final date = DateTime.tryParse(value);
+
+  if (date == null) {
+    return null;
+  }
+
+  return _dateOnly(date);
+}
+
+String? _dateToStorage(DateTime? date) {
+  if (date == null) {
+    return null;
+  }
+
+  final dateOnly = _dateOnly(date);
+  final month = dateOnly.month.toString().padLeft(2, '0');
+  final day = dateOnly.day.toString().padLeft(2, '0');
+
+  return '${dateOnly.year}-$month-$day';
 }
 
 class GoalSprintApp extends StatefulWidget {
@@ -284,13 +363,15 @@ class _HomeScreenState extends State<HomeScreen> {
       title: 'Drink water',
       priority: GoalPriority.low,
       type: GoalItemType.habit,
-      streak: '5 days',
+      streakCount: 5,
+      lastCompletedDate: _yesterdayDate(),
     ),
     GoalItem(
       title: 'Read 10 minutes',
       priority: GoalPriority.medium,
       type: GoalItemType.habit,
-      streak: '3 days',
+      streakCount: 3,
+      lastCompletedDate: _yesterdayDate(),
     ),
   ];
 
@@ -419,6 +500,34 @@ class _HomeScreenState extends State<HomeScreen> {
     _showDeletedMessage(habit.title);
   }
 
+  bool _isHabitDoneToday(GoalItem habit) {
+    return habit.isDoneToday &&
+        _isSameDate(habit.lastCompletedDate, _todayDate());
+  }
+
+  void _toggleHabitDoneToday(GoalItem habit) {
+    final today = _todayDate();
+
+    setState(() {
+      if (_isHabitDoneToday(habit)) {
+        habit.isDoneToday = false;
+        habit.streakCount = habit.streakCount > 0 ? habit.streakCount - 1 : 0;
+        habit.lastCompletedDate = habit.streakCount > 0
+            ? _yesterdayDate(today)
+            : null;
+      } else {
+        final previousCompletedDate = habit.lastCompletedDate;
+
+        habit.isDoneToday = true;
+        habit.lastCompletedDate = today;
+        habit.streakCount = _isYesterday(previousCompletedDate, today)
+            ? habit.streakCount + 1
+            : 1;
+      }
+    });
+    unawaited(_saveItems());
+  }
+
   void _showDeletedMessage(String title) {
     ScaffoldMessenger.of(context).hideCurrentSnackBar();
     ScaffoldMessenger.of(context).showSnackBar(
@@ -535,10 +644,11 @@ class _HomeScreenState extends State<HomeScreen> {
                 onDismissed: (_) => _deleteHabit(habit),
                 child: HabitTile(
                   title: habit.title,
-                  subtitle: habit.streak == null
-                      ? habit.priority.subtitle
-                      : '${habit.streak} - ${habit.priority.subtitle}',
+                  priority: habit.priority.subtitle,
+                  streakCount: habit.streakCount,
+                  isDoneToday: _isHabitDoneToday(habit),
                   icon: habit.type.icon,
+                  onToggleToday: () => _toggleHabitDoneToday(habit),
                   onLongPress: () => _deleteHabit(habit),
                 ),
               ),
@@ -1234,20 +1344,30 @@ class TaskTile extends StatelessWidget {
 
 class HabitTile extends StatelessWidget {
   final String title;
-  final String subtitle;
+  final String priority;
+  final int streakCount;
+  final bool isDoneToday;
   final IconData icon;
+  final VoidCallback onToggleToday;
   final VoidCallback onLongPress;
 
   const HabitTile({
     super.key,
     required this.title,
-    required this.subtitle,
+    required this.priority,
+    required this.streakCount,
+    required this.isDoneToday,
     required this.icon,
+    required this.onToggleToday,
     required this.onLongPress,
   });
 
   @override
   Widget build(BuildContext context) {
+    final streakLabel = streakCount == 1
+        ? '1 day streak'
+        : '$streakCount day streak';
+
     return GestureDetector(
       onLongPress: onLongPress,
       child: Container(
@@ -1260,8 +1380,17 @@ class HabitTile extends StatelessWidget {
         child: Row(
           children: [
             CircleAvatar(
-              backgroundColor: const Color(0xFF2563EB).withValues(alpha: 0.1),
-              child: Icon(icon, color: const Color(0xFF2563EB)),
+              backgroundColor:
+                  (isDoneToday
+                          ? const Color(0xFF22C55E)
+                          : const Color(0xFF2563EB))
+                      .withValues(alpha: 0.1),
+              child: Icon(
+                isDoneToday ? Icons.check_rounded : icon,
+                color: isDoneToday
+                    ? const Color(0xFF22C55E)
+                    : const Color(0xFF2563EB),
+              ),
             ),
             const SizedBox(width: 14),
             Expanded(
@@ -1277,18 +1406,83 @@ class HabitTile extends StatelessWidget {
                   ),
                   const SizedBox(height: 4),
                   Text(
-                    subtitle,
+                    priority,
                     style: TextStyle(
                       color: Theme.of(context).colorScheme.onSurfaceVariant,
                       fontSize: 13,
                       fontWeight: FontWeight.w600,
                     ),
                   ),
+                  const SizedBox(height: 8),
+                  Wrap(
+                    spacing: 8,
+                    runSpacing: 8,
+                    crossAxisAlignment: WrapCrossAlignment.center,
+                    children: [
+                      HabitInfoChip(
+                        icon: Icons.local_fire_department_rounded,
+                        label: streakLabel,
+                      ),
+                      HabitInfoChip(
+                        icon: isDoneToday
+                            ? Icons.check_circle_rounded
+                            : Icons.radio_button_unchecked_rounded,
+                        label: isDoneToday ? 'Done Today' : 'Not done today',
+                      ),
+                    ],
+                  ),
                 ],
               ),
             ),
+            const SizedBox(width: 10),
+            FilledButton.tonal(
+              onPressed: onToggleToday,
+              style: FilledButton.styleFrom(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(16),
+                ),
+              ),
+              child: Text(isDoneToday ? 'Undo Today' : 'Done Today'),
+            ),
           ],
         ),
+      ),
+    );
+  }
+}
+
+class HabitInfoChip extends StatelessWidget {
+  final IconData icon;
+  final String label;
+
+  const HabitInfoChip({super.key, required this.icon, required this.label});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+      decoration: BoxDecoration(
+        color: Theme.of(context).colorScheme.surfaceContainerHighest,
+        borderRadius: BorderRadius.circular(999),
+      ),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Icon(
+            icon,
+            size: 15,
+            color: Theme.of(context).colorScheme.onSurfaceVariant,
+          ),
+          const SizedBox(width: 5),
+          Text(
+            label,
+            style: TextStyle(
+              color: Theme.of(context).colorScheme.onSurfaceVariant,
+              fontSize: 12,
+              fontWeight: FontWeight.w700,
+            ),
+          ),
+        ],
       ),
     );
   }
