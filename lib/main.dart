@@ -933,7 +933,7 @@ class PrivacyPolicyScreen extends StatelessWidget {
           LegalSectionCard(
             title: 'Contact',
             body:
-                'If you have questions about this Privacy Policy, contact us at: contact@goalsprint.example',
+                'If you have questions about this Privacy Policy, contact us at: contact@goalsprint.com',
           ),
         ],
       ),
@@ -1009,7 +1009,7 @@ class TermsConditionsScreen extends StatelessWidget {
           LegalSectionCard(
             title: 'Contact',
             body:
-                'If you have questions about these Terms & Conditions, contact us at: contact@goalsprint.example',
+                'If you have questions about these Terms & Conditions, contact us at: contact@goalsprint.com',
           ),
         ],
       ),
