@@ -4,16 +4,9 @@ void main() {
   runApp(const GoalSprintApp());
 }
 
-enum GoalItemType {
-  task,
-  habit,
-}
+enum GoalItemType { task, habit }
 
-enum GoalPriority {
-  low,
-  medium,
-  high,
-}
+enum GoalPriority { low, medium, high }
 
 extension GoalItemTypeLabel on GoalItemType {
   String get label {
@@ -89,12 +82,14 @@ class _GoalSprintAppState extends State<GoalSprintApp> {
       useMaterial3: true,
       brightness: brightness,
       colorSchemeSeed: const Color(0xFF2563EB),
-      scaffoldBackgroundColor:
-          isDark ? const Color(0xFF0F172A) : const Color(0xFFF8FAFC),
+      scaffoldBackgroundColor: isDark
+          ? const Color(0xFF0F172A)
+          : const Color(0xFFF8FAFC),
       cardColor: isDark ? const Color(0xFF1E293B) : Colors.white,
       appBarTheme: AppBarTheme(
-        backgroundColor:
-            isDark ? const Color(0xFF0F172A) : const Color(0xFFF8FAFC),
+        backgroundColor: isDark
+            ? const Color(0xFF0F172A)
+            : const Color(0xFFF8FAFC),
         foregroundColor: isDark ? Colors.white : const Color(0xFF0F172A),
         elevation: 0,
       ),
@@ -109,9 +104,7 @@ class _GoalSprintAppState extends State<GoalSprintApp> {
       theme: _buildTheme(Brightness.light),
       darkTheme: _buildTheme(Brightness.dark),
       themeMode: _darkMode ? ThemeMode.dark : ThemeMode.light,
-      home: SplashScreen(
-        onDarkModeChanged: _setDarkMode,
-      ),
+      home: SplashScreen(onDarkModeChanged: _setDarkMode),
     );
   }
 }
@@ -119,10 +112,7 @@ class _GoalSprintAppState extends State<GoalSprintApp> {
 class SplashScreen extends StatelessWidget {
   final ValueChanged<bool> onDarkModeChanged;
 
-  const SplashScreen({
-    super.key,
-    required this.onDarkModeChanged,
-  });
+  const SplashScreen({super.key, required this.onDarkModeChanged});
 
   @override
   Widget build(BuildContext context) {
@@ -140,14 +130,11 @@ class SplashScreen extends StatelessWidget {
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
                   gradient: const LinearGradient(
-                    colors: [
-                      Color(0xFF2563EB),
-                      Color(0xFF22C55E),
-                    ],
+                    colors: [Color(0xFF2563EB), Color(0xFF22C55E)],
                   ),
                   boxShadow: [
                     BoxShadow(
-                      color: Colors.blue.withOpacity(0.25),
+                      color: Colors.blue.withValues(alpha: 0.25),
                       blurRadius: 35,
                       offset: const Offset(0, 18),
                     ),
@@ -173,7 +160,7 @@ class SplashScreen extends StatelessWidget {
               Text(
                 'Small steps. Big goals.',
                 style: TextStyle(
-                  color: Colors.white.withOpacity(0.72),
+                  color: Colors.white.withValues(alpha: 0.72),
                   fontSize: 16,
                   fontWeight: FontWeight.w500,
                 ),
@@ -193,18 +180,14 @@ class SplashScreen extends StatelessWidget {
                     Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
-                        builder: (_) => HomeScreen(
-                          onDarkModeChanged: onDarkModeChanged,
-                        ),
+                        builder: (_) =>
+                            HomeScreen(onDarkModeChanged: onDarkModeChanged),
                       ),
                     );
                   },
                   child: const Text(
                     'Get Started',
-                    style: TextStyle(
-                      fontSize: 17,
-                      fontWeight: FontWeight.w700,
-                    ),
+                    style: TextStyle(fontSize: 17, fontWeight: FontWeight.w700),
                   ),
                 ),
               ),
@@ -220,10 +203,7 @@ class SplashScreen extends StatelessWidget {
 class HomeScreen extends StatefulWidget {
   final ValueChanged<bool> onDarkModeChanged;
 
-  const HomeScreen({
-    super.key,
-    required this.onDarkModeChanged,
-  });
+  const HomeScreen({super.key, required this.onDarkModeChanged});
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
@@ -267,9 +247,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Future<void> _openAddItemScreen() async {
     final item = await Navigator.push<GoalItem>(
       context,
-      MaterialPageRoute(
-        builder: (_) => const AddItemScreen(),
-      ),
+      MaterialPageRoute(builder: (_) => const AddItemScreen()),
     );
 
     if (!mounted || item == null) {
@@ -359,10 +337,7 @@ class _HomeScreenState extends State<HomeScreen> {
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(28),
               gradient: const LinearGradient(
-                colors: [
-                  Color(0xFF2563EB),
-                  Color(0xFF22C55E),
-                ],
+                colors: [Color(0xFF2563EB), Color(0xFF22C55E)],
               ),
             ),
             child: Column(
@@ -380,7 +355,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 Text(
                   '$completedTasks of ${_tasks.length} tasks completed',
                   style: TextStyle(
-                    color: Colors.white.withOpacity(0.85),
+                    color: Colors.white.withValues(alpha: 0.85),
                     fontSize: 14,
                   ),
                 ),
@@ -390,7 +365,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   child: LinearProgressIndicator(
                     value: progress,
                     minHeight: 10,
-                    backgroundColor: Colors.white.withOpacity(0.25),
+                    backgroundColor: Colors.white.withValues(alpha: 0.25),
                     color: Colors.white,
                   ),
                 ),
@@ -438,7 +413,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   title: habit.title,
                   subtitle: habit.streak == null
                       ? habit.priority.subtitle
-                      : '${habit.streak} • ${habit.priority.subtitle}',
+                      : '${habit.streak} - ${habit.priority.subtitle}',
                   icon: habit.type.icon,
                   onLongPress: () => _deleteHabit(habit),
                 ),
@@ -483,11 +458,7 @@ class _AddItemScreenState extends State<AddItemScreen> {
 
     Navigator.pop(
       context,
-      GoalItem(
-        title: title,
-        priority: _priority,
-        type: _type,
-      ),
+      GoalItem(title: title, priority: _priority, type: _type),
     );
   }
 
@@ -514,10 +485,7 @@ class _AddItemScreenState extends State<AddItemScreen> {
               children: [
                 const Text(
                   'What are you adding?',
-                  style: TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.w800,
-                  ),
+                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.w800),
                 ),
                 const SizedBox(height: 16),
                 SegmentedButton<GoalItemType>(
@@ -554,7 +522,7 @@ class _AddItemScreenState extends State<AddItemScreen> {
                 ),
                 const SizedBox(height: 18),
                 DropdownButtonFormField<GoalPriority>(
-                  value: _priority,
+                  initialValue: _priority,
                   decoration: InputDecoration(
                     labelText: 'Priority',
                     filled: true,
@@ -597,10 +565,7 @@ class _AddItemScreenState extends State<AddItemScreen> {
               onPressed: _saveItem,
               child: const Text(
                 'Save',
-                style: TextStyle(
-                  fontSize: 17,
-                  fontWeight: FontWeight.w700,
-                ),
+                style: TextStyle(fontSize: 17, fontWeight: FontWeight.w700),
               ),
             ),
           ),
@@ -692,10 +657,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 SizedBox(height: 18),
                 Text(
                   'About',
-                  style: TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.w800,
-                  ),
+                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.w800),
                 ),
                 SizedBox(height: 8),
                 Text(
@@ -724,10 +686,7 @@ class DeleteBackground extends StatelessWidget {
         color: Colors.red.shade500,
         borderRadius: BorderRadius.circular(22),
       ),
-      child: const Icon(
-        Icons.delete_rounded,
-        color: Colors.white,
-      ),
+      child: const Icon(Icons.delete_rounded, color: Colors.white),
     );
   }
 }
@@ -735,10 +694,7 @@ class DeleteBackground extends StatelessWidget {
 class EmptyStateText extends StatelessWidget {
   final String message;
 
-  const EmptyStateText({
-    super.key,
-    required this.message,
-  });
+  const EmptyStateText({super.key, required this.message});
 
   @override
   Widget build(BuildContext context) {
@@ -763,10 +719,7 @@ class EmptyStateText extends StatelessWidget {
 class SectionTitle extends StatelessWidget {
   final String title;
 
-  const SectionTitle({
-    super.key,
-    required this.title,
-  });
+  const SectionTitle({super.key, required this.title});
 
   @override
   Widget build(BuildContext context) {
@@ -876,11 +829,8 @@ class HabitTile extends StatelessWidget {
         child: Row(
           children: [
             CircleAvatar(
-              backgroundColor: const Color(0xFF2563EB).withOpacity(0.1),
-              child: Icon(
-                icon,
-                color: const Color(0xFF2563EB),
-              ),
+              backgroundColor: const Color(0xFF2563EB).withValues(alpha: 0.1),
+              child: Icon(icon, color: const Color(0xFF2563EB)),
             ),
             const SizedBox(width: 14),
             Expanded(
