@@ -1,30 +1,42 @@
-// This is a basic Flutter widget test.
-//
-// To perform an interaction with a widget in your test, use the WidgetTester
-// utility in the flutter_test package. For example, you can send tap and scroll
-// gestures. You can also use WidgetTester to find child widgets in the widget
-// tree, read text, and verify that the values of widget properties are correct.
-
-import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import 'package:goalsprint/main.dart';
 
 void main() {
-  testWidgets('Counter increments smoke test', (WidgetTester tester) async {
-    // Build our app and trigger a frame.
-    await tester.pumpWidget(const MyApp());
+  testWidgets('adds a task from the add item screen', (
+    WidgetTester tester,
+  ) async {
+    await tester.pumpWidget(const GoalSprintApp());
 
-    // Verify that our counter starts at 0.
-    expect(find.text('0'), findsOneWidget);
-    expect(find.text('1'), findsNothing);
+    await tester.tap(find.text('Get Started'));
+    await tester.pumpAndSettle();
 
-    // Tap the '+' icon and trigger a frame.
-    await tester.tap(find.byIcon(Icons.add));
-    await tester.pump();
+    expect(find.text('Today’s Sprint'), findsOneWidget);
 
-    // Verify that our counter has incremented.
-    expect(find.text('0'), findsNothing);
-    expect(find.text('1'), findsOneWidget);
+    await tester.tap(find.text('Add'));
+    await tester.pumpAndSettle();
+
+    await tester.enterText(find.byType(EditableText), 'Write MVP notes');
+    await tester.tap(find.text('Save'));
+    await tester.pumpAndSettle();
+
+    expect(find.text('Write MVP notes'), findsOneWidget);
+    expect(find.text('Medium priority'), findsWidgets);
+  });
+
+  testWidgets('settings screen shows app information', (
+    WidgetTester tester,
+  ) async {
+    await tester.pumpWidget(const GoalSprintApp());
+
+    await tester.tap(find.text('Get Started'));
+    await tester.pumpAndSettle();
+
+    await tester.tap(find.byTooltip('Settings'));
+    await tester.pumpAndSettle();
+
+    expect(find.text('Dark mode'), findsOneWidget);
+    expect(find.text('GoalSprint'), findsOneWidget);
+    expect(find.text('Version: 1.0.0'), findsOneWidget);
   });
 }
