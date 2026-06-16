@@ -859,39 +859,81 @@ class PrivacyPolicyScreen extends StatelessWidget {
       ),
       body: ListView(
         padding: const EdgeInsets.all(20),
-        children: [
-          Container(
-            padding: const EdgeInsets.all(20),
-            decoration: BoxDecoration(
-              color: Theme.of(context).cardColor,
-              borderRadius: BorderRadius.circular(24),
-            ),
-            child: const Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  'GoalSprint Privacy Policy',
-                  style: TextStyle(
-                    fontSize: 22,
-                    fontWeight: FontWeight.w800,
-                    letterSpacing: -0.4,
-                  ),
-                ),
-                SizedBox(height: 16),
-                Text(
-                  'GoalSprint stores your tasks, habits, and settings locally '
-                  'on your device.',
-                ),
-                SizedBox(height: 12),
-                Text('GoalSprint does not use accounts, login, or a backend.'),
-                SizedBox(height: 12),
-                Text('GoalSprint does not share your data with third parties.'),
-                SizedBox(height: 12),
-                Text('GoalSprint does not show ads for now.'),
-                SizedBox(height: 12),
-                Text('GoalSprint does not request sensitive permissions.'),
-              ],
-            ),
+        children: const [
+          LegalHeaderCard(
+            title: 'GoalSprint Privacy Policy',
+            subtitle:
+                'This Privacy Policy explains how GoalSprint handles your information when you use the app.',
+          ),
+          LegalSectionCard(
+            title: 'Introduction',
+            body:
+                'GoalSprint is designed as a simple productivity app for planning daily tasks and tracking habits. Your privacy matters, so the app is intentionally built around local storage and does not require online services to function.',
+          ),
+          LegalSectionCard(
+            title: 'Information We Collect',
+            body:
+                'GoalSprint does not collect personal information such as your name, email address, phone number, location, contacts, photos, or payment details. The app only stores the task, habit, priority, completion, and app setting information that you choose to enter.',
+          ),
+          LegalSectionCard(
+            title: 'Local Storage Only',
+            body:
+                'Tasks, habits, priorities, completion states, and settings are stored locally on your device using device storage. This information stays on your device unless you choose to remove the app data, uninstall the app, or use device-level backup features provided by your operating system.',
+          ),
+          LegalSectionCard(
+            title: 'Tasks and Habits Data',
+            body:
+                'The titles and details you enter for tasks and habits are used only to display and manage your productivity list inside GoalSprint. You should avoid entering sensitive personal, medical, financial, legal, or confidential information into task or habit titles.',
+          ),
+          LegalSectionCard(
+            title: 'No Account or Login',
+            body:
+                'GoalSprint does not provide user accounts, registration, authentication, or login. Because there is no account system, GoalSprint does not store account credentials or profile information.',
+          ),
+          LegalSectionCard(
+            title: 'No Backend or Server',
+            body:
+                'GoalSprint does not send your tasks, habits, or settings to a backend server. The app does not currently provide cloud sync, remote storage, analytics dashboards, or server-side processing of your productivity data.',
+          ),
+          LegalSectionCard(
+            title: 'No Third-Party Sharing',
+            body:
+                'GoalSprint does not sell, rent, trade, transfer, or share your tasks, habits, settings, or other app data with third parties. Since the app stores data locally, GoalSprint does not have access to your task or habit content.',
+          ),
+          LegalSectionCard(
+            title: 'No Ads Currently',
+            body:
+                'GoalSprint does not currently display advertisements. The app does not currently use advertising SDKs or share information with advertising networks.',
+          ),
+          LegalSectionCard(
+            title: 'No Sensitive Permissions',
+            body:
+                'GoalSprint does not request sensitive permissions such as location, camera, microphone, contacts, calendar, SMS, call logs, or health data permissions. If future features require permissions, they will be requested only when needed and explained in the app.',
+          ),
+          LegalSectionCard(
+            title: 'Children’s Privacy',
+            body:
+                'GoalSprint is not intended to knowingly collect personal information from children. The app does not include account creation or backend collection. If a parent or guardian believes a child has entered inappropriate personal information into local task or habit data, they can delete that data directly from the device.',
+          ),
+          LegalSectionCard(
+            title: 'Data Deletion',
+            body:
+                'You can delete individual tasks and habits inside the app. You can also remove locally stored GoalSprint data by clearing the app data through your device settings or uninstalling the app. Because GoalSprint does not maintain a backend account, there is no remote server data to request or delete.',
+          ),
+          LegalSectionCard(
+            title: 'Security',
+            body:
+                'GoalSprint keeps data locally on your device and relies on your device’s normal security protections. You are responsible for protecting access to your device with available security features such as screen lock, passcode, biometric unlock, or device encryption.',
+          ),
+          LegalSectionCard(
+            title: 'Changes to This Policy',
+            body:
+                'GoalSprint may update this Privacy Policy if the app changes, new features are added, or legal requirements change. Any updated policy should be reviewed in the app or on the app listing when made available.',
+          ),
+          LegalSectionCard(
+            title: 'Contact',
+            body:
+                'If you have questions about this Privacy Policy, contact us at: contact@goalsprint.example',
           ),
         ],
       ),
@@ -913,42 +955,147 @@ class TermsConditionsScreen extends StatelessWidget {
       ),
       body: ListView(
         padding: const EdgeInsets.all(20),
+        children: const [
+          LegalHeaderCard(
+            title: 'GoalSprint Terms & Conditions',
+            subtitle:
+                'These Terms explain the basic rules for using GoalSprint and your responsibility for local app data.',
+          ),
+          LegalSectionCard(
+            title: 'Acceptance of Terms',
+            body:
+                'By downloading, installing, or using GoalSprint, you agree to these Terms & Conditions. If you do not agree with these Terms, do not use the app.',
+          ),
+          LegalSectionCard(
+            title: 'App Purpose',
+            body:
+                'GoalSprint is provided as a simple productivity tool for creating tasks, tracking habits, setting priorities, and reviewing daily progress. The app is intended for general personal organization and should not be used as a substitute for professional advice or critical recordkeeping.',
+          ),
+          LegalSectionCard(
+            title: 'User Responsibilities',
+            body:
+                'You are responsible for the information you enter into GoalSprint and for how you use the app. You agree not to use GoalSprint for unlawful, harmful, abusive, or misleading purposes, and you should avoid entering sensitive or confidential information into task or habit titles.',
+          ),
+          LegalSectionCard(
+            title: 'Local Data Responsibility',
+            body:
+                'GoalSprint stores tasks, habits, priorities, completion states, and settings locally on your device. You are responsible for maintaining access to your device, protecting your device, and backing up any information you consider important using tools provided by your device or operating system.',
+          ),
+          LegalSectionCard(
+            title: 'No Account, Login, or Backend',
+            body:
+                'GoalSprint does not currently provide accounts, login, cloud sync, or backend storage. If the app is deleted, app data is cleared, or your device is lost or reset, your locally stored GoalSprint data may be permanently lost.',
+          ),
+          LegalSectionCard(
+            title: 'No Guarantee',
+            body:
+                'GoalSprint is provided on an as-is and as-available basis. We do not guarantee that the app will be uninterrupted, error-free, compatible with every device, or suitable for every purpose. Productivity results depend on how you use the app.',
+          ),
+          LegalSectionCard(
+            title: 'Limitation of Liability',
+            body:
+                'To the maximum extent permitted by law, GoalSprint and its developers are not liable for indirect, incidental, special, consequential, or punitive damages, including loss of data, loss of productivity, device issues, or reliance on information stored in the app.',
+          ),
+          LegalSectionCard(
+            title: 'Changes to the App',
+            body:
+                'GoalSprint may change, improve, suspend, or remove features at any time. Future versions may add new functionality, and any material changes may be reflected in updated app information, Privacy Policy, or Terms & Conditions.',
+          ),
+          LegalSectionCard(
+            title: 'Termination',
+            body:
+                'You may stop using GoalSprint at any time by deleting the app from your device. We may discontinue the app or restrict access to future updates if necessary for security, legal, or operational reasons.',
+          ),
+          LegalSectionCard(
+            title: 'Contact',
+            body:
+                'If you have questions about these Terms & Conditions, contact us at: contact@goalsprint.example',
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class LegalHeaderCard extends StatelessWidget {
+  final String title;
+  final String subtitle;
+
+  const LegalHeaderCard({
+    super.key,
+    required this.title,
+    required this.subtitle,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: const EdgeInsets.only(bottom: 14),
+      padding: const EdgeInsets.all(22),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(28),
+        gradient: const LinearGradient(
+          colors: [Color(0xFF2563EB), Color(0xFF22C55E)],
+        ),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Container(
-            padding: const EdgeInsets.all(20),
-            decoration: BoxDecoration(
-              color: Theme.of(context).cardColor,
-              borderRadius: BorderRadius.circular(24),
+          Text(
+            title,
+            style: const TextStyle(
+              color: Colors.white,
+              fontSize: 24,
+              fontWeight: FontWeight.w800,
+              letterSpacing: -0.5,
             ),
-            child: const Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  'GoalSprint Terms & Conditions',
-                  style: TextStyle(
-                    fontSize: 22,
-                    fontWeight: FontWeight.w800,
-                    letterSpacing: -0.4,
-                  ),
-                ),
-                SizedBox(height: 16),
-                Text(
-                  'GoalSprint is a simple local productivity app for tracking '
-                  'tasks and habits.',
-                ),
-                SizedBox(height: 12),
-                Text(
-                  'Your data is stored locally on your device. GoalSprint does '
-                  'not provide an account, login, or backend sync.',
-                ),
-                SizedBox(height: 12),
-                Text(
-                  'GoalSprint does not share data with third parties and does '
-                  'not show ads for now.',
-                ),
-                SizedBox(height: 12),
-                Text('GoalSprint does not request sensitive permissions.'),
-              ],
+          ),
+          const SizedBox(height: 10),
+          Text(
+            subtitle,
+            style: TextStyle(
+              color: Colors.white.withValues(alpha: 0.88),
+              height: 1.4,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class LegalSectionCard extends StatelessWidget {
+  final String title;
+  final String body;
+
+  const LegalSectionCard({super.key, required this.title, required this.body});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: const EdgeInsets.only(bottom: 14),
+      padding: const EdgeInsets.all(18),
+      decoration: BoxDecoration(
+        color: Theme.of(context).cardColor,
+        borderRadius: BorderRadius.circular(22),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            title,
+            style: const TextStyle(
+              fontSize: 17,
+              fontWeight: FontWeight.w800,
+              letterSpacing: -0.2,
+            ),
+          ),
+          const SizedBox(height: 8),
+          Text(
+            body,
+            style: TextStyle(
+              color: Theme.of(context).colorScheme.onSurfaceVariant,
+              height: 1.45,
             ),
           ),
         ],
